@@ -17,16 +17,8 @@ function buildGithubUrl() {
 
 // Check if the request looks like it's from Roblox
 function isRoblox(req) {
-  const ua = (req.headers['user-agent'] || '').toLowerCase();
-  const hasRobloxUA = ua.includes('roblox');
-
-  // Roblox HttpService sends this header
-  const hasRobloxHeader = req.headers['roblox-id'] !== undefined;
-
-  // Optional: check your own secret key sent from the Roblox script
   const secretOk = !SECRET_KEY || req.headers['x-secret'] === SECRET_KEY;
-
-  return (hasRobloxUA || hasRobloxHeader) && secretOk;
+  return secretOk;
 }
 
 // Health check (Render pings this to keep the service alive)
